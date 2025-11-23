@@ -1,5 +1,6 @@
 package com.maiko.homesweethome;
 
+import com.maiko.homesweethome.blocks.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -21,6 +22,10 @@ public class HomeSweetHome
     public HomeSweetHome(FMLJavaModLoadingContext context)
     {
         IEventBus modEventBus = context.getModEventBus();
+
+        Blocks.BLOCKS.register(modEventBus);
+
+        Blocks.registerAllBlocks();
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
