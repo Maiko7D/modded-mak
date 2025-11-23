@@ -1,6 +1,7 @@
 package com.maiko.homesweethome;
 
 import com.maiko.homesweethome.blocks.Blocks;
+import com.maiko.homesweethome.items.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -24,11 +25,7 @@ public class HomeSweetHome
         IEventBus modEventBus = context.getModEventBus();
 
         Blocks.BLOCKS.register(modEventBus);
-
-        Blocks.registerAllBlocks();
-
-        // Register the commonSetup method for modloading
-        modEventBus.addListener(this::commonSetup);
+        Items.ITEMS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
