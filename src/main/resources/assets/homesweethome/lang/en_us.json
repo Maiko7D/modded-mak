@@ -1,5 +1,8 @@
 {
   "item.homesweethome.lemon": "Lemon",
 
+  "block.homesweethome.heater": "Heater",
+  "block.homesweethome.stove": "Stove",
+
   "creativetab.homesweethome": "Home Sweet Home"
 }

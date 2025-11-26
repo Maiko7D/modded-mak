@@ -145,6 +145,8 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+    annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
+    compileOnly 'com.google.auto.service:auto-service-annotations:1.1.1'
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -204,6 +206,65 @@ publishing {
     }
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir("$buildDir/generated/sources/annotationProcessor/java/main")
+        }
+    }
+}
+
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
+
+def generateBlockProviders() {
+    def sourceRoot = file("src/main/java")
+    def providers = []
+
+    sourceRoot.eachFileRecurse { f ->
+        if (f.name.endsWith(".java")) {
+            def text = f.text
+            if (text.contains("implements ExternalBlockProvider")) {
+                def className = f.path
+                        .replace(sourceRoot.path + File.separator, "")
+                        .replace(File.separator, ".")
+                        .replace(".java", "")
+                providers << className
+                println "FOUND PROVIDER: $className"
+            }
+        }
+    }
+
+    def outputDir = file("src/main/java/com/maiko/homesweethome/generated")
+    outputDir.mkdirs()
+
+    def output = new File(outputDir, "GeneratedBlockProviders.java")
+
+    def imports = providers.collect { "import ${it};" }.join("\n")
+    def instances = providers.collect { "        new ${it.substring(it.lastIndexOf('.')+1)}()," }.join("\n")
+
+    output.text = """
+        package com.maiko.homesweethome.generated;
+        
+        import com.maiko.homesweethome.blocks.ExternalBlockProvider;
+        ${imports}
+        
+        public class GeneratedBlockProviders {
+            public static final ExternalBlockProvider[] PROVIDERS = new ExternalBlockProvider[] {
+        ${instances}
+            };
+        }
+    """
+}
+
+tasks.register("generateBlockProviders") {
+    doLast {
+        generateBlockProviders()
+    }
+}
+
+tasks.named("compileJava") {
+    dependsOn("generateBlockProviders")
+}
+

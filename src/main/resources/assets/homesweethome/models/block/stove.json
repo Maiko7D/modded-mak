@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "homesweethome:block/stove_top",
+    "bottom": "homesweethome:block/stove_bottom",
+    "front": "homesweethome:block/stove_front",
+    "side": "homesweethome:block/stove_side"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "homesweethome:block/stove", "y": 0 },
+    "facing=south": { "model": "homesweethome:block/stove", "y": 180 },
+    "facing=west":  { "model": "homesweethome:block/stove", "y": 270 },
+    "facing=east":  { "model": "homesweethome:block/stove", "y": 90 }
+  }
+}
