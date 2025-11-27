@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "up": "homesweethome:block/speaker_top",
+    "down": "homesweethome:block/speaker_side",
+    "north": "homesweethome:block/speaker_side",
+    "south": "homesweethome:block/speaker_side",
+    "west": "homesweethome:block/speaker_side",
+    "east": "homesweethome:block/speaker_side"
+  }
+}

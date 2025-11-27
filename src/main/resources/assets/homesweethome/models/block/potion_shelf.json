@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "homesweethome:block/potion_shelf_top",
+    "bottom": "homesweethome:block/potion_shelf_top",
+    "front": "homesweethome:block/potion_shelf_front",
+    "side": "homesweethome:block/potion_shelf_front"
+  }
+}

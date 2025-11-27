@@ -1,19 +1,19 @@
 package com.maiko.homesweethome.blocks.individuals;
 
+import com.maiko.homesweethome.blocks.ExtendDirectionalBlock;
 import com.maiko.homesweethome.blocks.ExternalBlockProvider;
-import com.maiko.homesweethome.blocks.ExtendHorizontalBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-public class Stove implements ExternalBlockProvider {
+public class Speaker implements ExternalBlockProvider {
 
     @Override
     public String getRegistryName() {
-        return "stove";
+        return "speaker";
     }
 
     @Override
     public Block createBlock() {
-        return new ExtendHorizontalBlock(Block.Properties.copy(Blocks.IRON_BLOCK).strength(2.0f, 2.0f));
+        return new ExtendDirectionalBlock(Block.Properties.copy(Blocks.IRON_BLOCK).strength(2.0f, 2.0f));
     }
 }

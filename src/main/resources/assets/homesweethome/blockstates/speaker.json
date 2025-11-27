@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=x": { "model": "homesweethome:block/speaker", "x": 90, "y": 90 },
+    "axis=y": { "model": "homesweethome:block/speaker" },
+    "axis=z": { "model": "homesweethome:block/speaker", "x": 90 }
+  }
+}

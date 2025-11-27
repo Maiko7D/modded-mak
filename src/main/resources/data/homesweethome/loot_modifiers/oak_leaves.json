@@ -1,0 +1,40 @@
+{
+  "type": "forge:add_items",
+  "conditions": [
+    {
+      "condition": "minecraft:block_state_property",
+      "block": "minecraft:oak_leaves"
+    },
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.005
+    },
+    {
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+          "items": ["minecraft:shears"],
+          "enchantments": [
+            {
+              "enchantment": "minecraft:silk_touch",
+              "min_level": 1
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "item": "homesweethome:lemon",
+  "functions": [
+    {
+      "function": "minecraft:apply_bonus",
+      "enchantment": "minecraft:fortune",
+      "formula": "binomial_with_bonus_count",
+      "parameters": {
+        "extra": 0.02,
+        "probability": 0.5
+      }
+    }
+  ]
+}

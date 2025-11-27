@@ -3,11 +3,15 @@
         
         import com.maiko.homesweethome.blocks.ExternalBlockProvider;
         import com.maiko.homesweethome.blocks.individuals.Heater;
+import com.maiko.homesweethome.blocks.individuals.PotionShelf;
+import com.maiko.homesweethome.blocks.individuals.Speaker;
 import com.maiko.homesweethome.blocks.individuals.Stove;
         
         public class GeneratedBlockProviders {
             public static final ExternalBlockProvider[] PROVIDERS = new ExternalBlockProvider[] {
                 new Heater(),
+        new PotionShelf(),
+        new Speaker(),
         new Stove(),
             };
         }
