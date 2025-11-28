@@ -1,6 +1,8 @@
 package com.maiko.homesweethome.registration;
 
 import com.maiko.homesweethome.blocks.ExternalBlockProvider;
+import com.maiko.homesweethome.blocks.individuals.PotionShelfBlock;
+import com.maiko.homesweethome.blocks.individuals.PotionShelfBlockEntity;
 import com.maiko.homesweethome.generated.GeneratedBlockProviders;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -24,42 +26,40 @@ public class Blocks {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, "homesweethome");
 
+    public static final RegistryObject<Block> POTION_SHELF =
+            BLOCKS.register("potion_shelf", PotionShelfBlock::new);
+
+    public static final RegistryObject<Item> POTION_SHELF_ITEM =
+            ITEMS.register("potion_shelf",
+                    () -> new BlockItem(POTION_SHELF.get(), new Item.Properties()));
+
     // Map to store BlockItems for creative tab usage
     public static final Map<String, RegistryObject<BlockItem>> DYNAMIC_BLOCK_ITEMS = new HashMap<>();
 
     public static void register(IEventBus bus) {
-        BLOCKS.register(bus);
-        ITEMS.register(bus);
-        BlockEntities.register(bus);  // <-- ADD THIS
 
         System.out.println(">>> Providers loaded: " + GeneratedBlockProviders.PROVIDERS.length);
 
         for (ExternalBlockProvider provider : GeneratedBlockProviders.PROVIDERS) {
 
-            System.out.println("Registering block: " + provider.getRegistryName());
-
-            // Register block
+            // Register the block
             RegistryObject<Block> blockReg = BLOCKS.register(provider.getRegistryName(), provider::createBlock);
 
-            // Register BlockItem
+            // Register the BlockItem
             RegistryObject<BlockItem> itemReg = ITEMS.register(provider.getRegistryName(), () ->
                     new BlockItem(blockReg.get(), new Item.Properties())
             );
 
             DYNAMIC_BLOCK_ITEMS.put(provider.getRegistryName(), itemReg);
-
-            // 🔥 NEW: Only register block entity if provider supplies one
-            if (provider.hasBlockEntity()) {
-
-                RegistryObject<BlockEntityType<?>> beType =
-                        BlockEntities.BLOCK_ENTITIES.register(provider.getRegistryName(), () ->
-                                provider.createBlockEntityType(blockReg)
-                        );
-
-                BlockEntities.DYNAMIC_BLOCK_ENTITIES.put(provider.getRegistryName(), beType);
-
-                System.out.println("Registered BlockEntity for: " + provider.getRegistryName());
-            }
         }
+
+        BlockEntities.BLOCK_ENTITIES.register(bus);
+
+        // ✅ Now attach the DeferredRegisters to the mod event bus
+        BLOCKS.register(bus);
+        ITEMS.register(bus);
     }
+
+
+
 }

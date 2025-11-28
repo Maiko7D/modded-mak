@@ -14,7 +14,6 @@ public class Heater implements ExternalBlockProvider {
 
     @Override
     public Block createBlock() {
-        return new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
-                .strength(2.0f)); // Set hardness and resistance
+        return new HeaterBlock();
     }
 }
